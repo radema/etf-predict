@@ -1,0 +1,5 @@
+*.csv
+*/__pycache__
+*.ipynb_checkpoints
+*.parquet
+*.DS_Store
