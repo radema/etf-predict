@@ -10,8 +10,8 @@ yf.pdr_override()
 TICKERS = ['VWCE.MI','LCWD.MI','EUNA.F']
 
 PARAMS = {}
-PARAMS['EUNA.F']={'changepoint_prior_scale': 0.007, 'seasonality_prior_scale': 10.0, 'interval_width': 0.95}
-PARAMS['LCWD.MI']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.95}
+PARAMS['EUNA.F']={'changepoint_prior_scale': 0.007, 'seasonality_prior_scale': 10.0, 'interval_width': 0.99}
+PARAMS['LCWD.MI']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
 PARAMS['VWCE.MI']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
 
 
