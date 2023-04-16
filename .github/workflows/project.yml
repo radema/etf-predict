@@ -18,11 +18,3 @@ jobs:
         - name: Install deps
           working-directory: .
           run: pip install -r config/requirements.txt
-        - name: Execute script
-          working-directory: .
-          run: python src/main.py
-        - name: Commit
-          uses: EndBug/add-and-commit@v9
-          with:
-            message: 'Aggiunti dataset con split per avviso'
-            add: 'data'
