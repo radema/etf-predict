@@ -39,4 +39,4 @@ def main(periods=30*6, show = True):
     
 
 if __name__ == '__main__':
-    main(show = False])
+    main(show = False)
