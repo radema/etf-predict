@@ -88,6 +88,6 @@ def ModelPerformance(m):
     from prophet.diagnostics import cross_validation, performance_metrics
     from prophet.plot import plot_cross_validation_metric
 
-    data_cv = cross_validation(m, horizon = '90 days', parallel='processes')
+    data_cv = cross_validation(m, horizon = '30 days', parallel='processes')
     data_p = performance_metrics(data_cv)
     return data_p
