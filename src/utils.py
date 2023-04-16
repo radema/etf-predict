@@ -7,12 +7,12 @@ import warnings
 import yfinance as yf
 yf.pdr_override()
 
-TICKERS = ['VWCE.MI','LCWD.MI','EUNA.F']
+TICKERS = ['VWCE.AS','LCWD.PA','EUNA.F']
 
 PARAMS = {}
 PARAMS['EUNA.F']={'changepoint_prior_scale': 0.007, 'seasonality_prior_scale': 10.0, 'interval_width': 0.99}
-PARAMS['LCWD.MI']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
-PARAMS['VWCE.MI']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
+PARAMS['LCWD.PA']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
+PARAMS['VWCE.AS']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
 
 
 def ExtractData(list_of_tickers):
@@ -66,7 +66,7 @@ def TrainProphetModel(data: pd.DataFrame, ticker: str, periods: 30*6):
 
     return m, forecast
 
-def PlotResults(m, forecast,ticker):
+def PlotResults(m, forecast,ticker,report_folder, show = True):
     from prophet import Prophet
     import matplotlib.pyplot as mp
     from prophet.plot import plot_plotly, plot_components_plotly
@@ -74,10 +74,13 @@ def PlotResults(m, forecast,ticker):
     
     fig1 = plot_plotly(m,forecast, ylabel=ticker)
     fig3 = m.plot(forecast, ylabel = ticker)
-    fig1.show()
+    if show:
+        fig1.show()
+    fig1.write_html(report_folder+'/'+ticker+'.html')
     a = add_changepoints_to_plot(fig3.gca(), m, forecast)
     fig2 = plot_components_plotly(m,forecast)
-    fig2.show()
+    if show:
+        fig2.show()
 
 def ModelPerformance(m):
 

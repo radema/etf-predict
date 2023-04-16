@@ -3,6 +3,7 @@ import pandas as pd
 import tqdm.notebook as tq
 import warnings
 warnings.filterwarnings("ignore")
+import sys
 
 import logging
 
@@ -11,7 +12,7 @@ logger.addHandler(logging.NullHandler())
 logger.propagate = False
 logger.setLevel(logging.CRITICAL)
 
-def main(periods=30*6):
+def main(periods=30*6, show = True):
     data = ExtractData(TICKERS)
     data.to_parquet('data/tickers_source.parquet')
     print('\nData stored!')
@@ -27,7 +28,7 @@ def main(periods=30*6):
 
         m, data_frc = TrainProphetModel(data, ticker=ticker, periods=periods)
 
-        PlotResults(m, data_frc,ticker=ticker)
+        PlotResults(m, data_frc,ticker=ticker, report_folder='data/report', show = show)
 
         ModelPerformance(m).to_csv('data/performance/'+ticker+'_model.csv')
         print('\n'+ticker+': DONE!')
@@ -38,4 +39,4 @@ def main(periods=30*6):
     
 
 if __name__ == '__main__':
-    main()
+    main(show = sys.argv[1])
