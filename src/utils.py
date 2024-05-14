@@ -7,12 +7,12 @@ import warnings
 import yfinance as yf
 yf.pdr_override()
 
-TICKERS = ['VWCE.AS','LCWD.PA','EUNA.F']
+TICKERS = ['VWCE.MI','EUNA.F','IEAA.L']
 
 PARAMS = {}
 PARAMS['EUNA.F']={'changepoint_prior_scale': 0.007, 'seasonality_prior_scale': 10.0, 'interval_width': 0.99}
-PARAMS['LCWD.PA']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
-PARAMS['VWCE.AS']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
+PARAMS['IEAA.L']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
+PARAMS['VWCE.MI']={'changepoint_prior_scale': 0.05, 'seasonality_prior_scale': 0.01, 'interval_width': 0.99}
 
 
 def ExtractData(list_of_tickers):
@@ -88,6 +88,6 @@ def ModelPerformance(m):
     from prophet.diagnostics import cross_validation, performance_metrics
     from prophet.plot import plot_cross_validation_metric
 
-    data_cv = cross_validation(m, horizon = '90 days', parallel='processes')
+    data_cv = cross_validation(m, horizon = '30 days', parallel='processes')
     data_p = performance_metrics(data_cv)
     return data_p
