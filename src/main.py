@@ -12,7 +12,7 @@ logger.addHandler(logging.NullHandler())
 logger.propagate = False
 logger.setLevel(logging.CRITICAL)
 
-def main(periods=30*6, show = True):
+def main(periods=30*6, show = True, save_fig = False):
     data = ExtractData(TICKERS)
     data.to_parquet('data/tickers_source.parquet')
     print('\nData stored!')
@@ -28,7 +28,7 @@ def main(periods=30*6, show = True):
 
         m, data_frc = TrainProphetModel(data, ticker=ticker, periods=periods)
 
-        PlotResults(m, data_frc,ticker=ticker, report_folder='data/report', show = show)
+        PlotResults(m, data_frc,ticker=ticker, report_folder='data/report', show = show, save_fig=save_fig)
 
         ModelPerformance(m).to_csv('data/performance/'+ticker+'_model.csv')
         print('\n'+ticker+': DONE!')
@@ -39,4 +39,4 @@ def main(periods=30*6, show = True):
     
 
 if __name__ == '__main__':
-    main(show = False)
+    main(show = True, save_fig=False)
