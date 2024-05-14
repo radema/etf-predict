@@ -7,7 +7,7 @@ import warnings
 import yfinance as yf
 yf.pdr_override()
 
-TICKERS = ['VWCE.AS','LCWD.PA','EUNA.F']
+TICKERS = ['VWCE.MI','LCWD.PA','EUNA.F']
 
 PARAMS = {}
 PARAMS['EUNA.F']={'changepoint_prior_scale': 0.007, 'seasonality_prior_scale': 10.0, 'interval_width': 0.99}
