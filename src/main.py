@@ -4,6 +4,7 @@ import tqdm.notebook as tq
 import warnings
 warnings.filterwarnings("ignore")
 import sys
+import os
 
 import logging
 
@@ -14,6 +15,7 @@ logger.setLevel(logging.CRITICAL)
 
 def main(periods=30*6, show = True, save_fig = False):
     data = ExtractData(TICKERS)
+    os.makedirs('data',exist_ok=True)
     data.to_parquet('data/tickers_source.parquet')
     print('\nData stored!')
     

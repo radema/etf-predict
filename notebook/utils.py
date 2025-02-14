@@ -1,6 +1,7 @@
 import pandas as pd
 from pandas_datareader import data as pdr
 from datetime import date as dt
+import os
 import warnings
 
 
@@ -29,6 +30,7 @@ def LoadStoredData():
     '''
     Load source file with ETF data and returns a groupedby DataFrame
     '''
+    os.makedirs('data',exist_ok=True)
     dfs = pd.read_parquet('data/tickers_source.parquet')
     dfs.drop(columns='Adj Close', inplace=True)
     dfs = dfs.groupby('ticker')
