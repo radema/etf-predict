@@ -64,9 +64,17 @@ python src/main.py --show True --save_fig True
 - The output files (model performance reports, plots) are saved in the `data/` directory.
 
 ## Roadmap
-- [ ] Improve data validation and error handling.
-- [ ] Add more ETFs to the dataset.
+- [x] Improve data validation and error handling.
+- [x] Add more ETFs to the dataset.
 - [ ] Create a web-based dashboard for visualization.
+   - [ ] Enrich Portfolio Metrics tab adding kpis for each etf
+   - [ ] Add tab with portfolio/ETF performance per month
+   - [ ] In data explorer, display also pct_change over time
+   - [ ] In data explorer, add aggregation by month
+   - [ ] Add forecast tab, based on prophet and previous code
+   - [ ] Simulate future portfolio returns using randomized price paths and calculate VaR or other things.
+   - [ ] Find a way to evaluate the propability of maximum drawdown allowed (considering different time ranges)
+   - [ ] Optimizer tab, based on forecast and maximum drawdown, optimize portfolio distribution
 
 ## License
 This project is licensed under the MIT License.
