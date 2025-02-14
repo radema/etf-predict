@@ -4,3 +4,4 @@
 *.parquet
 *.DS_Store
 .vscode
+data/portfolio.json
