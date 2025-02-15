@@ -1,8 +1,10 @@
 # main.py
 import streamlit as st
 import plotly.express as px
+import plotly.graph_objects as go
 from src.portfolio import Portfolio
 import pandas as pd
+import numpy as np
 
 
 st.title("ETF Portfolio Analyzer")
@@ -43,7 +45,7 @@ with tab1:
             st.rerun()
         
         # Calculate and display metrics
-        metrics, returns = portfolio.calculate_metrics()
+        #metrics, returns = portfolio.calculate_metrics()
 
 with tab2:
     # Display current portfolio
@@ -51,11 +53,54 @@ with tab2:
         st.header("Current Portfolio")
         st.dataframe(portfolio.get_holdings_summary())
 
-    if metrics:
+    #if metrics:
         st.subheader("Portfolio Metrics")
-        metrics_df = pd.DataFrame([metrics]).T
-        metrics_df.columns = ['Value']
-        st.dataframe(metrics_df.style.format("{:.2%}"))
+        
+        #metrics_df = pd.DataFrame([metrics]).T
+        #metrics_df.columns = ['Value']
+        #st.dataframe(metrics_df.style.format("{:.2%}"))
+
+        metrics_df = portfolio.get_etf_metrics_summary()
+        
+        st.subheader("Current Market Status")
+        cols = st.columns(len(portfolio.holdings))
+        for i, (ticker, holding) in enumerate(portfolio.holdings.items()):
+            with cols[i]:
+                metrics = holding.metrics
+                st.metric(
+                    label=ticker,
+                    value=f"${metrics.current_price:.2f}",
+                    delta=f"{metrics.price_change_1d:.2%}"
+                )
+    
+        # Display detailed metrics table
+        st.subheader("Detailed ETF Metrics")
+    
+        # Format the metrics DataFrame
+        formatted_df = metrics_df.style.format({
+            'Current Price': '${:.2f}',
+            'Allocation (%)': '{:.1f}%',
+            '1D Change (%)': '{:.2f}%',
+            '1M Change (%)': '{:.2f}%',
+            '3M Change (%)': '{:.2f}%',
+            'YTD Change (%)': '{:.2f}%',
+            'Annual Return (%)': '{:.2f}%',
+            'Annual Volatility (%)': '{:.2f}%',
+            'Sharpe Ratio': '{:.2f}',
+            'Max Drawdown (%)': '{:.2f}%',
+            'Beta': '{:.2f}',
+            'Alpha (%)': '{:.2f}%',
+            'Tracking Error (%)': '{:.2f}%',
+            'Information Ratio': '{:.2f}',
+            'VaR 95% (%)': '{:.2f}%'
+        }).background_gradient(subset=[
+            'Annual Return (%)',
+            'Sharpe Ratio',
+            'Information Ratio'
+        ], cmap='RdYlGn')
+    
+        st.dataframe(formatted_df)
+
             
     # Plot portfolio returns
     st.subheader("Portfolio Performance")
